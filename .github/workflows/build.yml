@@ -18,10 +18,10 @@ jobs:
       - name: Verify
         run: |
           mvn $MAVEN_CLI_OPTS install
-          test -z "$SONAR_TOKEN" \
+          test -z "${{ secrets.SONAR_TOKEN }}" \
             || mvn $MAVEN_CLI_OPTS sonar:sonar \
                  -Dsonar.host.url=https://sonarcloud.io \
-                 -Dsonar.login=${SONAR_TOKEN} \
+                 -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
                  -Dsonar.organization=${GITHUB_REPOSITORY_OWNER} \
                  -Dsonar.projectKey=${GITHUB_REPOSITORY//\//_} \
                  -Dsonar.branch.name=${CI_COMMIT_REF_NAME} \
